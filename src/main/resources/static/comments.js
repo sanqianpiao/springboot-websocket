@@ -5,8 +5,7 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
-    }
-    else {
+    } else {
         $("#conversation").hide();
     }
     $("#greetings").html("");
@@ -44,13 +43,31 @@ function showGreeting(message) {
     $("#greetings").prepend("<tr><td>" + message + "</td></tr>");
 }
 
+function postComment() {
+    var comment = $("#comment").val();
+    $.post("/comment", {comment: comment}).done(function(data) {
+        console.log(data)
+    });
+}
+
 $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#start" ).click(function() { simulateComments(); });
-    $( "#stop" ).click(function() { stopSimulatingComments(); });
+    $("#connect").click(function () {
+        connect();
+    });
+    $("#disconnect").click(function () {
+        disconnect();
+    });
+    $("#start").click(function () {
+        simulateComments();
+    });
+    $("#stop").click(function () {
+        stopSimulatingComments();
+    });
+    $("#postComment").click(function() {
+        postComment();
+    });
 });
 
